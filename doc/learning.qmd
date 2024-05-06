@@ -17,22 +17,24 @@ library(here)
 ```{r}
 # Code chunk
 user_1_info_file <- here("data-raw/mmash/user_1/user_info.csv")
-user_1_info_data <- read_csv(user_1_info_file, 
-                             col_select = -1,
-                             name_repair = snakecase::to_snake_case)
+user_1_info_data <- read_csv(user_1_info_file,
+  col_select = -1,
+  name_repair = snakecase::to_snake_case
+)
 
 spec(user_1_info_data)
 
 user_1_info_data <- read_csv(user_1_info_file,
-                             col_select = -1, #to choose which columns should be removed
-                            col_types = cols(
-                            col_skip(),
-                            gender = col_character(),
-                            weight = col_double(),
-                            height = col_double(),
-                            age = col_double()
-                            ),
-                            name_repair = snakecase::to_snake_case) #to rename all to snake_case. Do not put () because this is not an action but rather and object
+  col_select = -1, # to choose which columns should be removed
+  col_types = cols(
+    col_skip(),
+    gender = col_character(),
+    weight = col_double(),
+    height = col_double(),
+    age = col_double()
+  ),
+  name_repair = snakecase::to_snake_case
+) # to rename all to snake_case. Do not put () because this is not an action but rather and object
 spec(user_1_info_data)
 ```
 
@@ -40,24 +42,26 @@ spec(user_1_info_data)
 #Exercise: importing saliva data
 
 ```{r}
-# New chunk 
+# New chunk
 user_1_saliva_file <- here("data-raw/mmash/user_1/saliva.csv")
 user_1_saliva_data_prep <- read_csv(
   user_1_saliva_file,
-    col_select = -1,
-    name_repair = snakecase::to_snake_case)
+  col_select = -1,
+  name_repair = snakecase::to_snake_case
+)
 
 spec(user_1_saliva_data_prep)
 
 user_1_saliva_data <- read_csv(
-  user_1_saliva_data_prep,
-    col_select = -1, 
-    col_types =  cols(col_skip(),
-  samples = col_character(),
-  cortisol_norm = col_double(),
-  melatonin_norm = col_double()
-),
-    name_repair = snakecase::to_snake_case)
+  user_1_saliva_file,
+  col_select = -1,
+  col_types = cols(col_skip(),
+    samples = col_character(),
+    cortisol_norm = col_double(),
+    melatonin_norm = col_double()
+  ),
+  name_repair = snakecase::to_snake_case
+)
 ```
 
 ## Importing larger datasets 
@@ -67,7 +71,8 @@ user_1_rr_data_prep <- read_csv(
   user_1_rr_file,
   col_select = -1,
   name_repair = snakecase::to_snake_case,
-  n_max = 100) #to choose how many raws we want to read
+  n_max = 100
+) # to choose how many raws we want to read
 spec(user_1_rr_data_prep)
 
 user_1_rr_data <- read_csv(
@@ -76,12 +81,45 @@ user_1_rr_data <- read_csv(
   name_repair = snakecase::to_snake_case,
   col_types = cols(
     col_skip(),
-  ibi_s = col_double(),
-  day = col_integer(),
-  time = col_time(format = "")
+    ibi_s = col_double(),
+    day = col_integer(),
+    time = col_time(format = "")
   )
 )
 ```
 
 
+```{r}
+#Exercise: Import the actigraph data
+user_1_actigraph_file <- here("data-raw/mmash/user_1/Actigraph.csv")
+user_1_actigraph_data_prep <- read_csv(
+  user_1_actigraph_file,
+    n_max = 100,
+    col_select = -1,
+    name_repair = snakecase::to_snake_case
+)
+spec(user_1_actigraph_data_prep)
+
+
+user_1_actigraph_data <- read_csv(
+    user_1_actigraph_file,
+    col_select = -1,
+    col_types = cols(
+   col_skip(),
+   axis_1 = col_double(),
+  axis_2 = col_double(),
+  axis_3 = col_double(),
+  steps = col_double(),
+  hr = col_double(),
+  inclinometer_off = col_double(),
+  inclinometer_standing = col_double(),
+  inclinometer_sitting = col_double(),
+  inclinometer_lying = col_double(),
+  vector_magnitude = col_double(),
+  day = col_double(),
+  time = col_time(format = "")
+))
+   
+
+```
 
