@@ -90,37 +90,36 @@ user_1_rr_data <- read_csv(
 
 
 ```{r}
-#Exercise: Import the actigraph data
+# Exercise: Import the actigraph data
 user_1_actigraph_file <- here("data-raw/mmash/user_1/Actigraph.csv")
 user_1_actigraph_data_prep <- read_csv(
   user_1_actigraph_file,
-    n_max = 100,
-    col_select = -1,
-    name_repair = snakecase::to_snake_case
+  n_max = 100,
+  col_select = -1,
+  name_repair = snakecase::to_snake_case
 )
 spec(user_1_actigraph_data_prep)
 
 
 user_1_actigraph_data <- read_csv(
-    user_1_actigraph_file,
-    col_select = -1,
-    col_types = cols(
-   col_skip(),
-   axis_1 = col_double(),
-  axis_2 = col_double(),
-  axis_3 = col_double(),
-  steps = col_double(),
-  hr = col_double(),
-  inclinometer_off = col_double(),
-  inclinometer_standing = col_double(),
-  inclinometer_sitting = col_double(),
-  inclinometer_lying = col_double(),
-  vector_magnitude = col_double(),
-  day = col_double(),
-  time = col_time(format = "")
-))
-   
-
+  user_1_actigraph_file,
+  col_select = -1,
+  col_types = cols(
+    col_skip(),
+    axis_1 = col_double(),
+    axis_2 = col_double(),
+    axis_3 = col_double(),
+    steps = col_double(),
+    hr = col_double(),
+    inclinometer_off = col_double(),
+    inclinometer_standing = col_double(),
+    inclinometer_sitting = col_double(),
+    inclinometer_lying = col_double(),
+    vector_magnitude = col_double(),
+    day = col_double(),
+    time = col_time(format = "")
+  )
+)
 ```
 
 ## Making a function
@@ -131,12 +130,59 @@ user_1_actigraph_data <- read_csv(
 #' @param num2 Second number to be added
 #'
 #' @return Num1 and Num2 added
-add_numbers <- function(num1, num2){
-added <- num1 + num2
-  
+add_numbers <- function(num1, num2) {
+  added <- num1 + num2
+
   return(added)
 }
 
-add_numbers(10,20)
+add_numbers(10, 20)
+```
+## Function to import user data
+```{r}
+#' Function to import user data
+#'
+#' @param file_path Path to user info data file.
+#' @return a data frame/tibble.
+#'
+import_user_info <- function(file_path) {
+  info_data <- read_csv(
+    file_path,
+    col_select = -1,
+    col_types = cols(
+      col_skip(),
+      gender = col_character(),
+      weight = col_double(),
+      height = col_double(),
+      age = col_double()
+    ),
+    name_repair = snakecase::to_snake_case
+  )
+  return(info_data)
+}
+
+import_user_info(here("data-raw/mmash/user_1/user_info.csv"))
 ```
 
+#Exercise 6 for importing the saliva data as a function
+```{r}
+#' Import saliva data
+#'
+#' @param file_path path to saliva data file
+#' @return a data table/tibble
+
+import_saliva_data <- function(file_path) {
+  saliva_data <- read_csv(
+    user_1_saliva_file,
+    col_select = -1,
+    col_types = cols(
+      samples = col_character(),
+      cortisol_norm = col_double(),
+      melatonin_norm = col_double()
+    ),
+    name_repair = snakecase::to_snake_case
+  )
+  return(saliva_data)
+}
+import_saliva_data("raw-data/mmash/user1/saliva.csv")
+```
