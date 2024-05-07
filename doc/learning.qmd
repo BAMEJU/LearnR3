@@ -10,6 +10,7 @@ format: html
 #| include: false
 library(tidyverse)
 library(here)
+source(here("R/functions.R"))
 ```
 
 ## Importing raw data
@@ -138,51 +139,50 @@ add_numbers <- function(num1, num2) {
 
 add_numbers(10, 20)
 ```
-## Function to import user data
-```{r}
-#' Function to import user data
-#'
-#' @param file_path Path to user info data file.
-#' @return a data frame/tibble.
-#'
-import_user_info <- function(file_path) {
-  info_data <- read_csv(
-    file_path,
-    col_select = -1,
-    col_types = cols(
-      col_skip(),
-      gender = col_character(),
-      weight = col_double(),
-      height = col_double(),
-      age = col_double()
-    ),
-    name_repair = snakecase::to_snake_case
-  )
-  return(info_data)
-}
 
-import_user_info(here("data-raw/mmash/user_1/user_info.csv"))
-```
+
 
 #Exercise 6 for importing the saliva data as a function
 ```{r}
-#' Import saliva data
+#' Import the MMASH saliva file.
 #'
-#' @param file_path path to saliva data file
-#' @return a data table/tibble
-
-import_saliva_data <- function(file_path) {
+#' @param file_path Path to the user saliva data file.
+#'
+#' @return Outputs a data frame/tibble.
+#'
+import_saliva <- function(file_path) {
   saliva_data <- read_csv(
-    user_1_saliva_file,
+    file_path,
     col_select = -1,
     col_types = cols(
       samples = col_character(),
       cortisol_norm = col_double(),
-      melatonin_norm = col_double()
+      melatonin_norm = col_double(),
+      .delim = ","
     ),
     name_repair = snakecase::to_snake_case
   )
   return(saliva_data)
 }
-import_saliva_data("raw-data/mmash/user1/saliva.csv")
+
+import_saliva(here("data-raw/mmash/user_1/saliva.csv"))
 ```
+
+## 6.6 Exercise: repeat with the other functions
+
+#rr data
+
+```{r}
+
+```
+
+```{r}
+
+import_rr(here("data-raw/mmash/user_1/RR.csv"))
+```
+
+
+
+
+
+
