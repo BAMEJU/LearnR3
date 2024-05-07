@@ -10,10 +10,21 @@ format: html
 #| include: false
 library(tidyverse)
 library(here)
+library(fs)
 source(here("R/functions.R"))
 ```
 
+```{r}
+user_info_files <- dir_ls(here("data-raw/mmash/"),
+                          regexp = "user_info.csv", recurse = TRUE)
 
+user_info_files
+```
+
+```{r}
+user_info_df <- map(user_info_files, import_user_info) |> list_rbind(names_to = "file_path_id")
+user_info_list
+```
 
 
 
