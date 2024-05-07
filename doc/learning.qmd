@@ -63,3 +63,8 @@ user_actigraph_df <- map(user_actigraph_files, import_actigraph) |>
 user_actigraph_df
 ```
 
+ ## Exercise: Map on the other datasets
+```{r}
+import_multiple_files <- function(file_patern,import_function)
+```
+ 
