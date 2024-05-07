@@ -26,6 +26,40 @@ user_info_df <- map(user_info_files, import_user_info) |> list_rbind(names_to = 
 user_info_list
 ```
 
+# Exercise 7.3 making functionals with other files
+# rr files
+```{r}
+user_rr_files <- dir_ls(here("data-raw/mmash/"),
+  regexp = "RR.csv",
+  recurse = TRUE
+)
+user_rr_df <- map(user_rr_files, import_rr) |>
+  list_rbind(names_to = "file_path_id")
 
+user_rr_df
+```
 
+## saliva files
+```{r}
+user_saliva_files <- dir_ls(here("data-raw/mmash/"),
+  regexp = "saliva.csv",
+  recurse = TRUE
+)
+user_saliva_df <- map(user_saliva_files, import_saliva) |>
+  list_rbind(names_to = "file_path_id")
+
+user_saliva_df
+```
+
+## Actuígraph files
+```{r}
+user_actigraph_files <- dir_ls(here("data-raw/mmash/"),
+  regexp = "Actigraph.csv",
+  recurse = TRUE
+)
+user_actigraph_df <- map(user_actigraph_files, import_actigraph) |>
+  list_rbind(names_to = "file_path_id")
+
+user_actigraph_df
+```
 
