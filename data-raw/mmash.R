@@ -7,7 +7,6 @@ source(here("R/functions.R"))
 
 usethis::use_data(mmash, overwrite = TRUE)
 
-library(here)
 
 # Download
 mmash_link <- "https://physionet.org/static/published-projects/mmash/multilevel-monitoring-of-activity-and-sleep-in-healthy-people-1.0.0.zip"
