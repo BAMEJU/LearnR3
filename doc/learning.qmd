@@ -35,12 +35,12 @@ rr_df <- import_multiple_files("RR.csv", import_rr)
 
 summarised_rr_df <- rr_df |>
   group_by(file_path_id, day) |>
-  summarise(across(ibi_s, list(
-    mean = \(x) mean(x,
-      na.rm = TRUE,
+  summarise(
+    across(ibi_s, list(
+      mean = \(x) mean(x, na.rm = TRUE),
       sd = \(x) sd(x, na.rm = TRUE)
-    )
-  ), .groups = "drop"))
-
+    )),
+    .groups = "drop"
+  )
 summarised_rr_df
 ```
