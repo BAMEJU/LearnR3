@@ -1,3 +1,8 @@
+library(here)
+library(fs)
+library(tidyverse)
+source(here("R/functions.R"))
+
 ## code to prepare `mmash` dataset goes here
 
 usethis::use_data(mmash, overwrite = TRUE)
@@ -31,3 +36,11 @@ file_delete(here(c(
   "data-raw/LICENSE.txt"
 )))
 file_move(here("data-raw/DataPaper"), here("data-raw/mmash"))
+
+
+# Import multiple files
+user_info_df <- import_multiple_files("user_info.csv", import_user_info)
+user_info_df
+
+saliva_df <- import_multiple_files("saliva.csv",import_saliva)
+saliva_df
