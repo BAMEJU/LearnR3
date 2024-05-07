@@ -44,3 +44,21 @@ summarised_rr_df <- rr_df |>
   )
 summarised_rr_df
 ```
+
+#Exercise summarize actigraph data
+
+```{r}
+actigraph_df <- import_multiple_files("Actigraph.csv", import_actigraph)
+
+summarised_actigraph_df <- actigraph_df |>
+  group_by(file_path_id, day) |>
+  summarise(
+    across(inclinometer_lying, list(
+      mean = \(x) mean(x, na.rm = TRUE),
+      sd = \(x) sd(x, na.rm = TRUE),
+      var = \(x) var(x, na.rm = TRUE)
+    )),
+    .groups = "drop"
+  )
+summarised_actigraph_df
+```
